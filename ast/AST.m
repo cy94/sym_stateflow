@@ -1,11 +1,12 @@
 classdef AST
-    % AST: Abstract Syntax Tree for Arithmeftic / Boolean expressions
+    % AST: Abstract Syntax Tree for Arithmetic / Boolean expressions
     %  The AST is built by parsing an expression
     %  Includes
     %   int, boolean
     %   arithmetic (+, -, *, /)
     %   logical (&&, ||, ~)
     %   relational (==, ~=, >, <, >=, <=)
+    %   assignment (=)
     
     properties (GetAccess = private)
         root % root node
@@ -13,7 +14,6 @@ classdef AST
     
     methods
         function obj = AST()
-            'created AST'
         end
     end
     
