@@ -113,13 +113,6 @@ static void initialize_c1_four_states_sym(SFc1_four_states_symInstanceStruct
 static void initialize_params_c1_four_states_sym
   (SFc1_four_states_symInstanceStruct *chartInstance)
 {
-  real_T c1_d0;
-  sf_set_error_prefix_string(
-    "Error evaluating data 'n' in the parent workspace.\n");
-  sf_mex_import_named("n", sf_mex_get_sfun_param(chartInstance->S, 0, 0), &c1_d0,
-                      0, 0, 0U, 0, 0U, 0);
-  chartInstance->c1_n = c1_d0;
-  sf_set_error_prefix_string("Stateflow Runtime Error (chart): ");
 }
 
 static void enable_c1_four_states_sym(SFc1_four_states_symInstanceStruct
@@ -318,6 +311,8 @@ static void c1_chartstep_c1_four_states_sym(SFc1_four_states_symInstanceStruct
   boolean_T c1_e_out;
   boolean_T c1_f_out;
   boolean_T c1_g_out;
+  real_T *c1_n;
+  c1_n = (real_T *)ssGetInputPortSignal(chartInstance->S, 0);
   _SFD_CC_CALL(CHART_ENTER_DURING_FUNCTION_TAG, 0U, chartInstance->c1_sfEvent);
   if (chartInstance->c1_is_active_c1_four_states_sym == 0U) {
     _SFD_CC_CALL(CHART_ENTER_ENTRY_FUNCTION_TAG, 0U, chartInstance->c1_sfEvent);
@@ -328,7 +323,7 @@ static void c1_chartstep_c1_four_states_sym(SFc1_four_states_symInstanceStruct
     chartInstance->c1_is_c1_four_states_sym = c1_IN_start;
     _SFD_CS_CALL(STATE_ACTIVE_TAG, 5U, chartInstance->c1_sfEvent);
     chartInstance->c1_tp_start = 1U;
-    chartInstance->c1_x = chartInstance->c1_n;
+    chartInstance->c1_x = *c1_n;
   } else {
     switch (chartInstance->c1_is_c1_four_states_sym) {
      case c1_IN_A:
@@ -470,9 +465,12 @@ static void c1_chartstep_c1_four_states_sym(SFc1_four_states_symInstanceStruct
         chartInstance->c1_x += 2.0;
       } else {
         _SFD_CT_CALL(TRANSITION_ACTIVE_TAG, 3U, chartInstance->c1_sfEvent);
-        c1_update(chartInstance);
         chartInstance->c1_tp_C = 0U;
+        chartInstance->c1_is_c1_four_states_sym = c1_IN_NO_ACTIVE_CHILD;
         _SFD_CS_CALL(STATE_INACTIVE_TAG, 2U, chartInstance->c1_sfEvent);
+        _SFD_CT_CALL(TRANSITION_BEFORE_TRANS_ACTION_TAG, 3U,
+                     chartInstance->c1_sfEvent);
+        c1_update(chartInstance);
         chartInstance->c1_is_c1_four_states_sym = c1_IN_B;
         _SFD_CS_CALL(STATE_ACTIVE_TAG, 1U, chartInstance->c1_sfEvent);
         chartInstance->c1_tp_B = 1U;
@@ -492,9 +490,12 @@ static void c1_chartstep_c1_four_states_sym(SFc1_four_states_symInstanceStruct
      case c1_IN_start:
       CV_CHART_EVAL(0, 0, 5);
       _SFD_CT_CALL(TRANSITION_ACTIVE_TAG, 6U, chartInstance->c1_sfEvent);
-      c1_update(chartInstance);
       chartInstance->c1_tp_start = 0U;
+      chartInstance->c1_is_c1_four_states_sym = c1_IN_NO_ACTIVE_CHILD;
       _SFD_CS_CALL(STATE_INACTIVE_TAG, 5U, chartInstance->c1_sfEvent);
+      _SFD_CT_CALL(TRANSITION_BEFORE_TRANS_ACTION_TAG, 6U,
+                   chartInstance->c1_sfEvent);
+      c1_update(chartInstance);
       chartInstance->c1_is_c1_four_states_sym = c1_IN_C;
       _SFD_CS_CALL(STATE_ACTIVE_TAG, 2U, chartInstance->c1_sfEvent);
       chartInstance->c1_tp_C = 1U;
@@ -558,9 +559,9 @@ static real_T c1_b_emlrt_marshallIn(SFc1_four_states_symInstanceStruct
   *chartInstance, const mxArray *c1_u, const emlrtMsgIdentifier *c1_parentId)
 {
   real_T c1_y;
-  real_T c1_d1;
-  sf_mex_import(c1_parentId, sf_mex_dup(c1_u), &c1_d1, 1, 0, 0U, 0, 0U, 0);
-  c1_y = c1_d1;
+  real_T c1_d0;
+  sf_mex_import(c1_parentId, sf_mex_dup(c1_u), &c1_d0, 1, 0, 0U, 0, 0U, 0);
+  c1_y = c1_d0;
   sf_mex_destroy(&c1_u);
   return c1_y;
 }
@@ -811,10 +812,10 @@ extern void utFree(void*);
 
 void sf_c1_four_states_sym_get_check_sum(mxArray *plhs[])
 {
-  ((real_T *)mxGetPr((plhs[0])))[0] = (real_T)(3083675194U);
-  ((real_T *)mxGetPr((plhs[0])))[1] = (real_T)(1392295135U);
-  ((real_T *)mxGetPr((plhs[0])))[2] = (real_T)(2433761788U);
-  ((real_T *)mxGetPr((plhs[0])))[3] = (real_T)(842895713U);
+  ((real_T *)mxGetPr((plhs[0])))[0] = (real_T)(3548199968U);
+  ((real_T *)mxGetPr((plhs[0])))[1] = (real_T)(1020560722U);
+  ((real_T *)mxGetPr((plhs[0])))[2] = (real_T)(2775699370U);
+  ((real_T *)mxGetPr((plhs[0])))[3] = (real_T)(2153622306U);
 }
 
 mxArray *sf_c1_four_states_sym_get_autoinheritance_info(void)
@@ -826,12 +827,8 @@ mxArray *sf_c1_four_states_sym_get_autoinheritance_info(void)
     autoinheritanceFields);
 
   {
-    mxArray *mxChecksum = mxCreateString("ZteSdb2A1hzF2sICsebSJF");
+    mxArray *mxChecksum = mxCreateString("hg2YZlOu6WWB0Lck7eOYeH");
     mxSetField(mxAutoinheritanceInfo,0,"checksum",mxChecksum);
-  }
-
-  {
-    mxSetField(mxAutoinheritanceInfo,0,"inputs",mxCreateDoubleMatrix(0,0,mxREAL));
   }
 
   {
@@ -857,7 +854,12 @@ mxArray *sf_c1_four_states_sym_get_autoinheritance_info(void)
     }
 
     mxSetField(mxData,0,"complexity",mxCreateDoubleScalar(0));
-    mxSetField(mxAutoinheritanceInfo,0,"parameters",mxData);
+    mxSetField(mxAutoinheritanceInfo,0,"inputs",mxData);
+  }
+
+  {
+    mxSetField(mxAutoinheritanceInfo,0,"parameters",mxCreateDoubleMatrix(0,0,
+                mxREAL));
   }
 
   {
@@ -956,7 +958,7 @@ static void chart_debug_initialization(SimStruct *S, unsigned int
             0,
             0,
             0);
-          _SFD_SET_DATA_PROPS(0,10,0,0,"n");
+          _SFD_SET_DATA_PROPS(0,1,1,0,"n");
           _SFD_SET_DATA_PROPS(1,0,0,0,"x");
           _SFD_SET_DATA_PROPS(2,2,0,1,"num_trans");
           _SFD_STATE_INFO(0,0,0);
@@ -1123,22 +1125,22 @@ static void chart_debug_initialization(SimStruct *S, unsigned int
                               1,NULL,NULL);
         }
 
-        _SFD_TRANS_COV_WTS(6,0,0,1,0);
+        _SFD_TRANS_COV_WTS(6,0,0,0,1);
         if (chartAlreadyPresent==0) {
           _SFD_TRANS_COV_MAPS(6,
                               0,NULL,NULL,
                               0,NULL,NULL,
-                              1,NULL,NULL,
-                              0,NULL,NULL);
+                              0,NULL,NULL,
+                              1,NULL,NULL);
         }
 
-        _SFD_TRANS_COV_WTS(3,0,0,1,0);
+        _SFD_TRANS_COV_WTS(3,0,0,0,1);
         if (chartAlreadyPresent==0) {
           _SFD_TRANS_COV_MAPS(3,
                               0,NULL,NULL,
                               0,NULL,NULL,
-                              1,NULL,NULL,
-                              0,NULL,NULL);
+                              0,NULL,NULL,
+                              1,NULL,NULL);
         }
 
         _SFD_TRANS_COV_WTS(1,0,1,0,1);
@@ -1168,16 +1170,18 @@ static void chart_debug_initialization(SimStruct *S, unsigned int
         }
 
         _SFD_SET_DATA_COMPILED_PROPS(0,SF_DOUBLE,0,NULL,0,0,0,0.0,1.0,0,0,
-          (MexFcnForType)c1_sf_marshallOut,(MexInFcnForType)c1_sf_marshallIn);
+          (MexFcnForType)c1_sf_marshallOut,(MexInFcnForType)NULL);
         _SFD_SET_DATA_COMPILED_PROPS(1,SF_DOUBLE,0,NULL,0,0,0,0.0,1.0,0,0,
           (MexFcnForType)c1_sf_marshallOut,(MexInFcnForType)c1_sf_marshallIn);
         _SFD_SET_DATA_COMPILED_PROPS(2,SF_DOUBLE,0,NULL,0,0,0,0.0,1.0,0,0,
           (MexFcnForType)c1_sf_marshallOut,(MexInFcnForType)c1_sf_marshallIn);
 
         {
+          real_T *c1_n;
           real_T *c1_num_trans;
           c1_num_trans = (real_T *)ssGetOutputPortSignal(chartInstance->S, 1);
-          _SFD_SET_DATA_VALUE_PTR(0U, &chartInstance->c1_n);
+          c1_n = (real_T *)ssGetInputPortSignal(chartInstance->S, 0);
+          _SFD_SET_DATA_VALUE_PTR(0U, c1_n);
           _SFD_SET_DATA_VALUE_PTR(1U, &chartInstance->c1_x);
           _SFD_SET_DATA_VALUE_PTR(2U, c1_num_trans);
         }
@@ -1192,7 +1196,7 @@ static void chart_debug_initialization(SimStruct *S, unsigned int
 
 static const char* sf_get_instance_specialization(void)
 {
-  return "2UqRdaWShEzrgYJGm6tEHF";
+  return "RvbNYNkF5NnndkiBsDcZHF";
 }
 
 static void sf_opaque_initialize_c1_four_states_sym(void *chartInstanceVar)
@@ -1323,15 +1327,6 @@ static void mdlProcessParameters_c1_four_states_sym(SimStruct *S)
 
 static void mdlSetWorkWidths_c1_four_states_sym(SimStruct *S)
 {
-  /* Actual parameters from chart:
-     n
-   */
-  const char_T *rtParamNames[] = { "n" };
-
-  ssSetNumRunTimeParams(S,ssGetSFcnParamsCount(S));
-
-  /* registration for n*/
-  ssRegDlgParamAsRunTimeParam(S, 0, 0, rtParamNames[0], SS_DOUBLE);
   if (sim_mode_is_rtw_gen(S) || sim_mode_is_external(S)) {
     mxArray *infoStruct = load_four_states_sym_optimization_info();
     int_T chartIsInlinable =
@@ -1347,6 +1342,9 @@ static void mdlSetWorkWidths_c1_four_states_sym(SimStruct *S)
       "gatewayCannotBeInlinedMultipleTimes"));
     sf_update_buildInfo(S,sf_get_instance_specialization(),infoStruct,1);
     if (chartIsInlinable) {
+      ssSetInputPortOptimOpts(S, 0, SS_REUSABLE_AND_LOCAL);
+      sf_mark_chart_expressionable_inputs(S,sf_get_instance_specialization(),
+        infoStruct,1,1);
       sf_mark_chart_reusable_outputs(S,sf_get_instance_specialization(),
         infoStruct,1,1);
     }
@@ -1358,16 +1356,23 @@ static void mdlSetWorkWidths_c1_four_states_sym(SimStruct *S)
       }
     }
 
+    {
+      unsigned int inPortIdx;
+      for (inPortIdx=0; inPortIdx < 1; ++inPortIdx) {
+        ssSetInputPortOptimizeInIR(S, inPortIdx, 1U);
+      }
+    }
+
     sf_set_rtw_dwork_info(S,sf_get_instance_specialization(),infoStruct,1);
     ssSetHasSubFunctions(S,!(chartIsInlinable));
   } else {
   }
 
   ssSetOptions(S,ssGetOptions(S)|SS_OPTION_WORKS_WITH_CODE_REUSE);
-  ssSetChecksum0(S,(4251587247U));
-  ssSetChecksum1(S,(3851568374U));
-  ssSetChecksum2(S,(2891529404U));
-  ssSetChecksum3(S,(3613006323U));
+  ssSetChecksum0(S,(3007253063U));
+  ssSetChecksum1(S,(1537795380U));
+  ssSetChecksum2(S,(4081419029U));
+  ssSetChecksum3(S,(2678168721U));
   ssSetmdlDerivatives(S, NULL);
   ssSetExplicitFCSSCtrl(S,1);
   ssSupportsMultipleExecInstances(S,1);

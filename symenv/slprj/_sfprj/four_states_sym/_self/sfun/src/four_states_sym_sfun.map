@@ -1,6 +1,6 @@
  four_states_sym_sfun
 
- Timestamp is 54ff233a (Tue Mar 10 22:30:42 2015)
+ Timestamp is 55007508 (Wed Mar 11 22:32:00 2015)
 
  Preferred load address is 0000000180000000
 
@@ -30,8 +30,8 @@
 
   Address         Publics by Value              Rva+Base               Lib:Object
 
- 0000:00000000       ___safe_se_handler_count   0000000000000000     <absolute>
  0000:00000000       ___safe_se_handler_table   0000000000000000     <absolute>
+ 0000:00000000       ___safe_se_handler_count   0000000000000000     <absolute>
  0000:00000000       __ImageBase                0000000180000000     <linker-defined>
  0001:00000000       sf_c1_four_states_sym_get_eml_resolved_functions_info 0000000180001000 f   c1_four_states_sym.obj
  0001:00000080       sf_c1_four_states_sym_get_check_sum 0000000180001080 f   c1_four_states_sym.obj
@@ -730,8 +730,8 @@
  0001:00038668       _CRT_INIT                  0000000180039668 f   MSVCRT:crtdll.obj
  0001:00038a00       _DllMainCRTStartup         0000000180039a00 f   MSVCRT:crtdll.obj
  0001:00038a3e       strncpy                    0000000180039a3e f   MSVCRT:MSVCR100.dll
- 0001:00038a60       __chkstk                   0000000180039a60 f   MSVCRT:chkstk.obj
  0001:00038a60       _alloca_probe              0000000180039a60     MSVCRT:chkstk.obj
+ 0001:00038a60       __chkstk                   0000000180039a60 f   MSVCRT:chkstk.obj
  0001:00038aae       longjmp                    0000000180039aae f   MSVCRT:MSVCR100.dll
  0001:00038ab4       strncmp                    0000000180039ab4 f   MSVCRT:MSVCR100.dll
  0001:00038aba       ceil                       0000000180039aba f   MSVCRT:MSVCR100.dll
@@ -927,10 +927,10 @@
  0002:00000490       __xc_z                     000000018003b490     MSVCRT:cinitexe.obj
  0002:00000498       __xi_a                     000000018003b498     MSVCRT:cinitexe.obj
  0002:000004a8       __xi_z                     000000018003b4a8     MSVCRT:cinitexe.obj
- 0002:000004b0       __real@41d16e4952800000    000000018003b4b0     c1_four_states_sym.obj
- 0002:000004b8       __real@41e12fdceea00000    000000018003b4b8     c1_four_states_sym.obj
- 0002:000004c0       __real@41ecff94b0e00000    000000018003b4c0     c1_four_states_sym.obj
- 0002:000004c8       __real@41d434c31e000000    000000018003b4c8     c1_four_states_sym.obj
+ 0002:000004b0       __real@41c91ec8b0800000    000000018003b4b0     c1_four_states_sym.obj
+ 0002:000004b8       __real@41e222083f800000    000000018003b4b8     c1_four_states_sym.obj
+ 0002:000004c0       __real@41d4bf2f37c00000    000000018003b4c0     c1_four_states_sym.obj
+ 0002:000004c8       __real@41e6f9a4c7400000    000000018003b4c8     c1_four_states_sym.obj
  0002:000004d0       __real@4024000000000000    000000018003b4d0     c1_four_states_sym.obj
  0002:000004d8       __real@3ff0000000000000    000000018003b4d8     c1_four_states_sym.obj
  0002:000004e0       __real@4000000000000000    000000018003b4e0     c1_four_states_sym.obj
@@ -943,10 +943,10 @@
  0002:00000a78       __real@0000000000000000    000000018003ba78     four_states_sym_sfun_registry.obj
  0002:00000a80       __real@bff0000000000000    000000018003ba80     four_states_sym_sfun_registry.obj
  0002:00000a88       __real@41602cbca0000000    000000018003ba88     four_states_sym_sfun_registry.obj
- 0002:00000a90       __real@41ed8e2e17000000    000000018003ba90     four_states_sym_sfun.obj
- 0002:00000a98       __real@41c39dc9ea000000    000000018003ba98     four_states_sym_sfun.obj
- 0002:00000aa0       __real@41d0b20315c00000    000000018003baa0     four_states_sym_sfun.obj
- 0002:00000aa8       __real@41ec674565200000    000000018003baa8     four_states_sym_sfun.obj
+ 0002:00000a90       __real@41a00f2616000000    000000018003ba90     four_states_sym_sfun.obj
+ 0002:00000a98       __real@41e2445da7200000    000000018003ba98     four_states_sym_sfun.obj
+ 0002:00000aa0       __real@41e672294a600000    000000018003baa0     four_states_sym_sfun.obj
+ 0002:00000aa8       __real@41e68870eb000000    000000018003baa8     four_states_sym_sfun.obj
  0002:00000ab0       __real@41ed08af7be00000    000000018003bab0     four_states_sym_sfun.obj
  0002:00000ab8       __real@41d03fc151000000    000000018003bab8     four_states_sym_sfun.obj
  0002:00000ac0       __real@41c439d4aa000000    000000018003bac0     four_states_sym_sfun.obj
@@ -1539,8 +1539,8 @@
  0001:00003cb0       sf_c1_four_states_sym      0000000180004cb0 f   c1_four_states_sym.obj
  0001:00003dd0       c1_set_sim_state_side_effects_c1_four_states_sym 0000000180004dd0 f   c1_four_states_sym.obj
  0001:00003ee0       c1_chartstep_c1_four_states_sym 0000000180004ee0 f   c1_four_states_sym.obj
- 0001:00006650       c1_update                  0000000180007650 f   c1_four_states_sym.obj
- 0001:00006990       c1_init                    0000000180007990 f   c1_four_states_sym.obj
+ 0001:00006650       c1_init                    0000000180007650 f   c1_four_states_sym.obj
+ 0001:00006990       c1_update                  0000000180007990 f   c1_four_states_sym.obj
  0001:00006cd0       sf_opaque_get_sim_state_c1_four_states_sym 0000000180007cd0 f   c1_four_states_sym.obj
  0001:00006cf0       sf_opaque_set_sim_state_c1_four_states_sym 0000000180007cf0 f   c1_four_states_sym.obj
  0001:00006d20       sf_opaque_terminate_c1_four_states_sym 0000000180007d20 f   c1_four_states_sym.obj
