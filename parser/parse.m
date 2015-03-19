@@ -4,8 +4,13 @@ function [ AST ] = parse( in_string )
 %   code in Stateflow en / du / ex actions and 
 %   transition guard / action
 %   assumes that code syntax is correct
+
+% Uses the Shunting Yard Algorithm - stacks for operators 
+% and operands (AST nodes)
+
     fprintf('Parsing: %s\n', in_string);
     
+%     use this function to get the list of operators
     operators = getOperators();
     
 %     operator stack - contains operator strings ('+', '-' ...)
@@ -23,11 +28,9 @@ function [ AST ] = parse( in_string )
         prec = precedence( tokens{i} );
 %       not an operator - variable or constant
         if(isempty(prec))
-            fprintf('Token: %s\n', tokens{i});
-            opn_stk{end + 1} = tokens{i};
+            opn_stk{end + 1} = newASTNode(tokens{i});
 %       found operator    
         else 
-            fprintf('Token: %s Prec: %d\n', tokens{i}, prec);
 %           check for higher precedence operators in stack
             if(~isempty(opr_stk))
                 while(precedence(opr_stk{end}) >= prec)
@@ -37,12 +40,28 @@ function [ AST ] = parse( in_string )
     %                     pop operator off stack
                         [opr, opr_stk]  = popStack(opr_stk);
     %                     add new node to opn_stk
-                        opn_stk{end + 1} = newASTNode(opr, opn1, opn2);
+                        opn_stk{end + 1} = newASTNode(opr, opn2, opn1);
                 end 
             end
 %             add this operator to opr_stk
             opr_stk{end + 1} = tokens{i};
         end
     end
+    
+%     add remaining operators 
+    while(~isempty(opr_stk))
+%        do the same as before
+        [opn1, opn_stk] = popStack(opn_stk);
+        [opn2, opn_stk] = popStack(opn_stk);
+        
+        [opr, opr_stk]  = popStack(opr_stk);
+        
+        opn_stk{end + 1} = newASTNode(opr, opn2, opn1);
+    end
+    
+%   only one node should remain in opn_stk - the AST
+%   return this
+    assert(length(opn_stk) == 1);
+    AST = opn_stk{1};
 end
 

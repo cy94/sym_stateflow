@@ -1,6 +1,15 @@
 function [ node ] = newASTNode( varargin )
-%NEWASTNODE Summary of this function goes here
-%   Detailed explanation goes here
+%NEWASTNODE creates an AST node based on args
+%   one arg - constant or variable
+%   eg: 1, 2, 'x', 3.5
+
+%   3 args - operator, ast1, ast2
+%   forms a new node operator(ast1, ast2)
+%   eg: '+', ast1, ast2 ->     
+%       +
+%      / \ 
+%     /   \
+%   ast1  ast2
 
 %   binary operator
 %       arg1: operator
@@ -24,7 +33,8 @@ function [ node ] = newASTNode( varargin )
             case '='    
                 node = Assignment(opn1, opn2);
         end
-    elseif(nargin == 1) %     constant or variable
+%   constant or variable        
+    elseif(nargin == 1) 
         value = str2num(varargin{1});
         
 %       not a number - variable

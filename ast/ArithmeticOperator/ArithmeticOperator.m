@@ -6,6 +6,9 @@ classdef ArithmeticOperator < Operator
     end
     
     methods
+        function obj = ArithmeticOperator(left, right)
+            obj = obj@Operator(left, right);
+        end
     end
     
 end

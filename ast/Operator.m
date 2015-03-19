@@ -9,6 +9,10 @@ classdef Operator < ASTNode
     end
     
     methods
+        function obj = Operator(left, right)
+            obj.left_node = left;
+            obj.right_node = right;
+        end
     end
     
 end

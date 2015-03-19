@@ -7,6 +7,10 @@ classdef Constant < ASTNode
     end
     
     methods
+        function obj = Constant(value)
+            fprintf('New constant node: %d\n', value);
+            obj.value = value;
+        end
     end
     
 end

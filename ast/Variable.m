@@ -7,6 +7,9 @@ classdef Variable < ASTNode
     end
     
     methods
+        function obj = Variable(name)
+            obj.name = name;
+        end
     end
     
 end

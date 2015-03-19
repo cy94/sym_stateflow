@@ -1,4 +1,4 @@
-classdef Product
+classdef Product < ArithmeticOperator
     %PRODUCT Summary of this class goes here
     %   Detailed explanation goes here
     
@@ -6,6 +6,9 @@ classdef Product
     end
     
     methods
+        function obj = Product(left, right)
+            obj = obj@ArithmeticOperator(left, right);
+        end
     end
     
 end

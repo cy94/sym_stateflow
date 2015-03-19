@@ -1,5 +1,7 @@
 classdef ASTNode
     %ASTNODE Node of an Abstract Syntax Tree (AST)
+    %  This is the parent class for all operators and 
+    %  expression nodes
     %  The AST is built by parsing an expression
     %  Includes
     %   int, boolean
@@ -13,6 +15,5 @@ classdef ASTNode
     
     methods
     end
-    
 end
 

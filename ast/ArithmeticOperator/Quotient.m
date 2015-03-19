@@ -1,4 +1,4 @@
-classdef Quotient
+classdef Quotient < ArithmeticOperator
     %QUOTIENT Summary of this class goes here
     %   Detailed explanation goes here
     
@@ -6,6 +6,9 @@ classdef Quotient
     end
     
     methods
+        function obj = Quotient(left, right)
+            obj = obj@ArithmeticOperator(left, right);
+        end
     end
     
 end
