@@ -1,4 +1,4 @@
-classdef Assignment
+classdef Assignment < Operator
     %ASSIGNMENT Summary of this class goes here
     %   Detailed explanation goes here
     
@@ -6,6 +6,9 @@ classdef Assignment
     end
     
     methods
+        function obj = Assignment(left, right)
+            obj = obj@Operator(left, right)
+        end
     end
     
 end

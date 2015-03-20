@@ -5,9 +5,11 @@ function [ AST ] = parse( in_string )
 %   transition guard / action
 %   assumes that code syntax is correct
 
+% eg: '1', 'x + 1', 'x = 1 + y', 'a && b'
+% currently does not handle parenthesis and semicolon
+
 % Uses the Shunting Yard Algorithm - stacks for operators 
 % and operands (AST nodes)
-
     fprintf('Parsing: %s\n', in_string);
     
 %     use this function to get the list of operators
@@ -32,17 +34,15 @@ function [ AST ] = parse( in_string )
 %       found operator    
         else 
 %           check for higher precedence operators in stack
-            if(~isempty(opr_stk))
-                while(precedence(opr_stk{end}) >= prec)
-    %                     pop 2 operands off stack
-                        [opn1, opn_stk] = popStack(opn_stk);
-                        [opn2, opn_stk] = popStack(opn_stk);
-    %                     pop operator off stack
-                        [opr, opr_stk]  = popStack(opr_stk);
-    %                     add new node to opn_stk
-                        opn_stk{end + 1} = newASTNode(opr, opn2, opn1);
-                end 
-            end
+            while(~isempty(opr_stk) && precedence(opr_stk{end}) >= prec)
+%                     pop 2 operands off stack
+                    [opn1, opn_stk] = popStack(opn_stk);
+                    [opn2, opn_stk] = popStack(opn_stk);
+%                     pop operator off stack
+                    [opr, opr_stk]  = popStack(opr_stk);
+%                     add new ASTnode to opn_stk
+                    opn_stk{end + 1} = newASTNode(opr, opn2, opn1);
+            end 
 %             add this operator to opr_stk
             opr_stk{end + 1} = tokens{i};
         end

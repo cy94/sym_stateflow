@@ -38,31 +38,29 @@ for i = 1 : length(states)
 
     %     split on ';' and strtrim
     %     remove empty tokens
-    %     get ast for each line and add to action_set
-%     TODO: refactor this
 %%%%%%%%%%%%%%    
+
     lines = strtrim(strsplit(out.entry, ';'));
+
     lines(strcmp('', lines)) = [];
-    
+%     get ast for each line and add to action_set
     for j = 1 : numel(lines)
         ast = parse(lines{j});
         action_set.add_entry_action(ast);
     end
 %%%%%%%%%%%%%%
-    lines = strtrim(strsplit(out.during, ';'));
+    lines = strtrim(strsplit(out.entry, ';'));
     lines(strcmp('', lines)) = [];
-    
     for j = 1 : numel(lines)
         ast = parse(lines{j});
-        action_set.add_during_action(ast);
+        action_set.add_entry_action(ast);
     end
 %%%%%%%%%%%%%%
-    lines = strtrim(strsplit(out.exit, ';'));
+    lines = strtrim(strsplit(out.entry, ';'));
     lines(strcmp('', lines)) = [];
-    
     for j = 1 : numel(lines)
         ast = parse(lines{j});
-        action_set.add_exit_action(ast);
+        action_set.add_entry_action(ast);
     end
 %%%%%%%%%%%%%%
 

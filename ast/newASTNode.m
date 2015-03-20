@@ -23,16 +23,33 @@ function [ node ] = newASTNode( varargin )
         
         switch opr
             case '*'
-                node = Product(opn1, opn2);
+                f = @Product;
             case '/'
-                node = Quotient(opn1, opn2);
+                f = @Quotient;
             case '+'    
-                node = Sum(opn1, opn2);
+                f = @Sum;
             case '-'    
-                node = Difference(opn1, opn2);
+                f = @Difference;
+            case '<'
+                f = @LessThan;
+            case '<='
+                f = @LessThanEqual;               
+            case '>'
+                f = @GreaterThan; 
+            case '>='
+                f = @GreaterThanEqual;
+            case '=='
+                f = @Equals;
+            case '~='
+                f = @NotEquals;
+            case '&&'
+                f = @And;
+            case '||'
+                f = @Or;                
             case '='    
-                node = Assignment(opn1, opn2);
+                f = @Assignment;
         end
+        node = f(opn1, opn2);
 %   constant or variable        
     elseif(nargin == 1) 
         value = str2num(varargin{1});

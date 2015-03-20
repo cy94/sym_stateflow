@@ -1,0 +1,32 @@
+classdef StateActionSet
+    %STATEACTIONSET set of en, du, ex actions in a state
+    %   Each action is a set of ASTs 
+    
+    properties
+        entry_action 
+        during_action
+        exit_action
+    end
+    
+    methods
+        function obj = StateActionSet()
+            entry_action = {};
+            during_action = {};
+            exit_action = {};
+        end
+        
+        function add_entry_action(ast)
+            entry_action{end + 1} = ast;
+        end
+        
+        function _action(ast)
+            entry_action{end + 1} = ast;
+        end
+        
+        function add_entry_action(ast)
+            entry_action{end + 1} = ast;
+        end
+        
+    end
+end
+

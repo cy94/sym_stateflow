@@ -4,6 +4,7 @@ function [ tokens ] = tokenize( in_string )
 %     split on whitespace
 %     fix to do proper lexical analysis later
     tokens = strsplit(in_string);
-
+%     remove empty tokens
+    tokens(strcmp('', tokens)) = [];
 end
 

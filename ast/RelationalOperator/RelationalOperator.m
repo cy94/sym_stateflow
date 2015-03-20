@@ -6,6 +6,9 @@ classdef RelationalOperator < Operator
     end
     
     methods
+        function obj = RelationalOperator(left, right)
+            obj = obj@Operator(left, right)
+        end
     end
     
 end

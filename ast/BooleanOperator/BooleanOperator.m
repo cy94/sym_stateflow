@@ -6,6 +6,9 @@ classdef BooleanOperator < Operator
     end
     
     methods
+        function obj = BooleanOperator(left, right)
+            obj = obj@Operator(left, right)
+        end
     end
     
 end
