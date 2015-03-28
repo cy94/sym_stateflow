@@ -25,6 +25,7 @@ typedef struct {
   uint8_T c1_is_active_c1_four_states_sym;
   uint8_T c1_is_c1_four_states_sym;
   real_T c1_x;
+  real_T c1_y;
   uint8_T c1_doSetSimStateSideEffects;
   const mxArray *c1_setSimStateSideEffectsInfo;
 } SFc1_four_states_symInstanceStruct;

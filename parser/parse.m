@@ -59,9 +59,14 @@ function [ AST ] = parse( in_string )
         opn_stk{end + 1} = newASTNode(opr, opn2, opn1);
     end
     
+%     empty string - no AST to return
+    if(isempty(opn_stk))
+        AST = [];
+    else
 %   only one node should remain in opn_stk - the AST
 %   return this
-    assert(length(opn_stk) == 1);
-    AST = opn_stk{1};
+        assert(length(opn_stk) == 1);
+        AST = opn_stk{1};
+    end
 end
 
