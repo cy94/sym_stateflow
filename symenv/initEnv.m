@@ -5,11 +5,14 @@
 % and guards / transition actions for transitions and stores the AST
 % (Abstract Syntax Tree) for each
 
+% clear the workspace - using base workspace for all variables
+clc
+clear all
 
 disp('Initializing symbolic environment');
 
 % add listener to model, used to update the sym env
-update_listener = add_exec_event_listener('simple/Simple Chart', 'PostOutputs', @updateEnvCallback);
+update_listener = add_exec_event_listener('simple/Simple Chart', 'PreOutputs', @updateEnvCallback);
 
 % store the simulink root
 root = sfroot();
@@ -28,7 +31,7 @@ disp('States');
 statelabel_expr = '(?<name>.*)?\nen:(?<entry>.*)\ndu:(?<during>.*)\nex:(?<exit>.*)';
 
 % create table of action -> ASTs
-action_table = StateActionTable();
+state_table = StateActionTable();
 
 for i = 1 : length(states)
     fprintf('---------\n');
@@ -71,7 +74,7 @@ for i = 1 : length(states)
 %%%%%%%%%%%%%%
 
 %     add action set to table
-    action_table.add(out.name, action_set);
+    state_table.add(out.name, action_set);
 end
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -91,21 +94,28 @@ for i = 1 : length(transitions)
         fprintf('---------\n');
         
         out = regexp(transitions(i).LabelString, translabel_expr, 'names');
+        disp(out);
+        
         %     store ASTs in struct
         ast = parse(out.guard);
         tr_set.guard = ast;
         
+        ast = parse(out.action);
+        tr_set.action = ast;
+        
         %    store struct in MapN (misc/MapN)
         transition_table(transitions(i).Source.Name, transitions(i).Destination.Name) = tr_set;
-        
-        disp(out);
     end
 end
 
-% create parsed state/transition + AST table
-
 % variable to store the current state - used in updateEnv
 % state_name is an enum created by Statefow Active State Output 
-fprintf('Init current state\n');
-current_state = state_name.None
+current_state = char(state_name.None);
+prev_state = char(state_name.None);
+new_state = char(state_name.None);
 
+% create empty SETBB and SETDB lists
+SETBB_list = {};
+SETDB_list = {};
+
+fprintf('Finished initEnv\n----------------\n');

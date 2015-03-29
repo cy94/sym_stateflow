@@ -46,7 +46,7 @@ static void c1_sf_marshallIn(void *chartInstanceVoid, const mxArray
 static const mxArray *c1_b_sf_marshallOut(void *chartInstanceVoid, void
   *c1_inData);
 static uint8_T c1_b_emlrt_marshallIn(SFc1_simpleInstanceStruct *chartInstance,
-  const mxArray *c1_b_tp_start, const char_T *c1_identifier);
+  const mxArray *c1_b_tp_A, const char_T *c1_identifier);
 static uint8_T c1_c_emlrt_marshallIn(SFc1_simpleInstanceStruct *chartInstance,
   const mxArray *c1_u, const emlrtMsgIdentifier *c1_parentId);
 static void c1_b_sf_marshallIn(void *chartInstanceVoid, const mxArray
@@ -121,6 +121,12 @@ static void c1_update_debugger_state_c1_simple(SFc1_simpleInstanceStruct
     _SFD_CC_CALL(CHART_ACTIVE_TAG, 0U, chartInstance->c1_sfEvent);
   }
 
+  if (*c1_state == state_name_A) {
+    _SFD_CS_CALL(STATE_ACTIVE_TAG, 0U, chartInstance->c1_sfEvent);
+  } else {
+    _SFD_CS_CALL(STATE_INACTIVE_TAG, 0U, chartInstance->c1_sfEvent);
+  }
+
   if (*c1_state == state_name_start) {
     _SFD_CS_CALL(STATE_ACTIVE_TAG, 2U, chartInstance->c1_sfEvent);
   } else {
@@ -131,12 +137,6 @@ static void c1_update_debugger_state_c1_simple(SFc1_simpleInstanceStruct
     _SFD_CS_CALL(STATE_ACTIVE_TAG, 1U, chartInstance->c1_sfEvent);
   } else {
     _SFD_CS_CALL(STATE_INACTIVE_TAG, 1U, chartInstance->c1_sfEvent);
-  }
-
-  if (*c1_state == state_name_A) {
-    _SFD_CS_CALL(STATE_ACTIVE_TAG, 0U, chartInstance->c1_sfEvent);
-  } else {
-    _SFD_CS_CALL(STATE_INACTIVE_TAG, 0U, chartInstance->c1_sfEvent);
   }
 
   _SFD_SET_ANIMATION(c1_prevAniVal);
@@ -265,6 +265,8 @@ static void sf_c1_simple(SFc1_simpleInstanceStruct *chartInstance)
 {
   boolean_T c1_out;
   boolean_T c1_b_out;
+  boolean_T c1_c_out;
+  real_T c1_d0;
   c1_state_name *c1_state;
   real_T *c1_n;
   c1_n = (real_T *)ssGetInputPortSignal(chartInstance->S, 0);
@@ -337,12 +339,29 @@ static void sf_c1_simple(SFc1_simpleInstanceStruct *chartInstance)
 
      case state_name_start:
       CV_CHART_EVAL(0, 0, 3);
-      _SFD_CT_CALL(TRANSITION_ACTIVE_TAG, 2U, chartInstance->c1_sfEvent);
-      chartInstance->c1_tp_start = 0U;
-      _SFD_CS_CALL(STATE_INACTIVE_TAG, 2U, chartInstance->c1_sfEvent);
-      *c1_state = state_name_C;
-      _SFD_CS_CALL(STATE_ACTIVE_TAG, 1U, chartInstance->c1_sfEvent);
-      chartInstance->c1_tp_C = 1U;
+      _SFD_CT_CALL(TRANSITION_BEFORE_PROCESSING_TAG, 2U,
+                   chartInstance->c1_sfEvent);
+      c1_c_out = (CV_TRANSITION_EVAL(2U, (int32_T)_SFD_CCP_CALL(2U, 0,
+        chartInstance->c1_x < 5.0 != 0U, chartInstance->c1_sfEvent)) != 0);
+      if (c1_c_out) {
+        _SFD_CT_CALL(TRANSITION_ACTIVE_TAG, 2U, chartInstance->c1_sfEvent);
+        chartInstance->c1_tp_start = 0U;
+        *c1_state = state_name_None;
+        _SFD_CS_CALL(STATE_INACTIVE_TAG, 2U, chartInstance->c1_sfEvent);
+        _SFD_CT_CALL(TRANSITION_BEFORE_TRANS_ACTION_TAG, 2U,
+                     chartInstance->c1_sfEvent);
+        chartInstance->c1_x++;
+        c1_d0 = chartInstance->c1_x;
+        sf_mex_printf("%s =\\n", "x");
+        sf_mex_call_debug("disp", 0U, 1U, 6, c1_d0);
+        *c1_state = state_name_C;
+        _SFD_CS_CALL(STATE_ACTIVE_TAG, 1U, chartInstance->c1_sfEvent);
+        chartInstance->c1_tp_C = 1U;
+      } else {
+        _SFD_CS_CALL(STATE_ENTER_DURING_FUNCTION_TAG, 2U,
+                     chartInstance->c1_sfEvent);
+      }
+
       _SFD_CS_CALL(EXIT_OUT_OF_FUNCTION_TAG, 2U, chartInstance->c1_sfEvent);
       break;
 
@@ -444,15 +463,15 @@ static const mxArray *c1_b_sf_marshallOut(void *chartInstanceVoid, void
 }
 
 static uint8_T c1_b_emlrt_marshallIn(SFc1_simpleInstanceStruct *chartInstance,
-  const mxArray *c1_b_tp_start, const char_T *c1_identifier)
+  const mxArray *c1_b_tp_A, const char_T *c1_identifier)
 {
   uint8_T c1_b_y;
   emlrtMsgIdentifier c1_thisId;
   c1_thisId.fIdentifier = c1_identifier;
   c1_thisId.fParent = NULL;
-  c1_b_y = c1_c_emlrt_marshallIn(chartInstance, sf_mex_dup(c1_b_tp_start),
+  c1_b_y = c1_c_emlrt_marshallIn(chartInstance, sf_mex_dup(c1_b_tp_A),
     &c1_thisId);
-  sf_mex_destroy(&c1_b_tp_start);
+  sf_mex_destroy(&c1_b_tp_A);
   return c1_b_y;
 }
 
@@ -470,19 +489,19 @@ static uint8_T c1_c_emlrt_marshallIn(SFc1_simpleInstanceStruct *chartInstance,
 static void c1_b_sf_marshallIn(void *chartInstanceVoid, const mxArray
   *c1_mxArrayInData, const char_T *c1_varName, void *c1_outData)
 {
-  const mxArray *c1_b_tp_start;
+  const mxArray *c1_b_tp_A;
   const char_T *c1_identifier;
   emlrtMsgIdentifier c1_thisId;
   uint8_T c1_b_y;
   SFc1_simpleInstanceStruct *chartInstance;
   chartInstance = (SFc1_simpleInstanceStruct *)chartInstanceVoid;
-  c1_b_tp_start = sf_mex_dup(c1_mxArrayInData);
+  c1_b_tp_A = sf_mex_dup(c1_mxArrayInData);
   c1_identifier = c1_varName;
   c1_thisId.fIdentifier = c1_identifier;
   c1_thisId.fParent = NULL;
-  c1_b_y = c1_c_emlrt_marshallIn(chartInstance, sf_mex_dup(c1_b_tp_start),
+  c1_b_y = c1_c_emlrt_marshallIn(chartInstance, sf_mex_dup(c1_b_tp_A),
     &c1_thisId);
-  sf_mex_destroy(&c1_b_tp_start);
+  sf_mex_destroy(&c1_b_tp_A);
   *(uint8_T *)c1_outData = c1_b_y;
   sf_mex_destroy(&c1_mxArrayInData);
 }
@@ -594,9 +613,9 @@ static real_T c1_g_emlrt_marshallIn(SFc1_simpleInstanceStruct *chartInstance,
   const mxArray *c1_u, const emlrtMsgIdentifier *c1_parentId)
 {
   real_T c1_b_y;
-  real_T c1_d0;
-  sf_mex_import(c1_parentId, sf_mex_dup(c1_u), &c1_d0, 1, 0, 0U, 0, 0U, 0);
-  c1_b_y = c1_d0;
+  real_T c1_d1;
+  sf_mex_import(c1_parentId, sf_mex_dup(c1_u), &c1_d1, 1, 0, 0U, 0, 0U, 0);
+  c1_b_y = c1_d1;
   sf_mex_destroy(&c1_u);
   return c1_b_y;
 }
@@ -672,10 +691,10 @@ extern void utFree(void*);
 
 void sf_c1_simple_get_check_sum(mxArray *plhs[])
 {
-  ((real_T *)mxGetPr((plhs[0])))[0] = (real_T)(1957490776U);
-  ((real_T *)mxGetPr((plhs[0])))[1] = (real_T)(1124495895U);
-  ((real_T *)mxGetPr((plhs[0])))[2] = (real_T)(3097920676U);
-  ((real_T *)mxGetPr((plhs[0])))[3] = (real_T)(3538944180U);
+  ((real_T *)mxGetPr((plhs[0])))[0] = (real_T)(4065239974U);
+  ((real_T *)mxGetPr((plhs[0])))[1] = (real_T)(4049362169U);
+  ((real_T *)mxGetPr((plhs[0])))[2] = (real_T)(3750147278U);
+  ((real_T *)mxGetPr((plhs[0])))[3] = (real_T)(3592841062U);
 }
 
 mxArray *sf_c1_simple_get_autoinheritance_info(void)
@@ -872,7 +891,18 @@ static void chart_debug_initialization(SimStruct *S, unsigned int
         }
 
         _SFD_CV_INIT_TRANS(3,0,NULL,NULL,0,NULL);
-        _SFD_CV_INIT_TRANS(2,0,NULL,NULL,0,NULL);
+
+        {
+          static unsigned int sStartGuardMap[] = { 1 };
+
+          static unsigned int sEndGuardMap[] = { 6 };
+
+          static int sPostFixPredicateTree[] = { 0 };
+
+          _SFD_CV_INIT_TRANS(2,1,&(sStartGuardMap[0]),&(sEndGuardMap[0]),1,
+                             &(sPostFixPredicateTree[0]));
+        }
+
         _SFD_TRANS_COV_WTS(1,0,1,0,0);
         if (chartAlreadyPresent==0) {
           static unsigned int sStartGuardMap[] = { 1 };
@@ -908,13 +938,17 @@ static void chart_debug_initialization(SimStruct *S, unsigned int
                               0,NULL,NULL);
         }
 
-        _SFD_TRANS_COV_WTS(2,0,0,0,0);
+        _SFD_TRANS_COV_WTS(2,0,1,0,1);
         if (chartAlreadyPresent==0) {
+          static unsigned int sStartGuardMap[] = { 1 };
+
+          static unsigned int sEndGuardMap[] = { 6 };
+
           _SFD_TRANS_COV_MAPS(2,
                               0,NULL,NULL,
+                              1,&(sStartGuardMap[0]),&(sEndGuardMap[0]),
                               0,NULL,NULL,
-                              0,NULL,NULL,
-                              0,NULL,NULL);
+                              1,NULL,NULL);
         }
 
         _SFD_SET_DATA_COMPILED_PROPS(0,SF_DOUBLE,0,NULL,0,0,0,0.0,1.0,0,0,
@@ -947,7 +981,7 @@ static void chart_debug_initialization(SimStruct *S, unsigned int
 
 static const char* sf_get_instance_specialization(void)
 {
-  return "FrQYRmjQU1Ve942GhvoRFC";
+  return "vFNPqbC9I3gEoGhaFWMCUH";
 }
 
 static void sf_opaque_initialize_c1_simple(void *chartInstanceVar)
@@ -1112,10 +1146,10 @@ static void mdlSetWorkWidths_c1_simple(SimStruct *S)
   }
 
   ssSetOptions(S,ssGetOptions(S)|SS_OPTION_WORKS_WITH_CODE_REUSE);
-  ssSetChecksum0(S,(2731764004U));
-  ssSetChecksum1(S,(185847110U));
-  ssSetChecksum2(S,(3537621748U));
-  ssSetChecksum3(S,(2679916314U));
+  ssSetChecksum0(S,(3156042153U));
+  ssSetChecksum1(S,(3693269922U));
+  ssSetChecksum2(S,(1152116203U));
+  ssSetChecksum3(S,(2578280064U));
   ssSetmdlDerivatives(S, NULL);
   ssSetExplicitFCSSCtrl(S,1);
   ssSupportsMultipleExecInstances(S,1);

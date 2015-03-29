@@ -133,10 +133,9 @@ static void sf_c2_simple(SFc2_simpleInstanceStruct *chartInstance)
   char_T c2_u[4];
   const mxArray *c2_y = NULL;
   int32_T c2_i1;
-  static char_T c2_cv1[13] = { 'c', 'u', 'r', 'r', 'e', 'n', 't', '_', 's', 't',
-    'a', 't', 'e' };
+  static char_T c2_cv1[9] = { 'n', 'e', 'w', '_', 's', 't', 'a', 't', 'e' };
 
-  char_T c2_b_u[13];
+  char_T c2_b_u[9];
   const mxArray *c2_b_y = NULL;
   c2_state_name c2_c_u;
   const mxArray *c2_c_y = NULL;
@@ -171,12 +170,12 @@ static void sf_c2_simple(SFc2_simpleInstanceStruct *chartInstance)
 
   c2_y = NULL;
   sf_mex_assign(&c2_y, sf_mex_create("y", c2_u, 10, 0U, 1U, 0U, 2, 1, 4), FALSE);
-  for (c2_i1 = 0; c2_i1 < 13; c2_i1++) {
+  for (c2_i1 = 0; c2_i1 < 9; c2_i1++) {
     c2_b_u[c2_i1] = c2_cv1[c2_i1];
   }
 
   c2_b_y = NULL;
-  sf_mex_assign(&c2_b_y, sf_mex_create("y", c2_b_u, 10, 0U, 1U, 0U, 2, 1, 13),
+  sf_mex_assign(&c2_b_y, sf_mex_create("y", c2_b_u, 10, 0U, 1U, 0U, 2, 1, 9),
                 FALSE);
   c2_c_u = c2_state;
   c2_c_y = NULL;
@@ -389,10 +388,10 @@ extern void utFree(void*);
 
 void sf_c2_simple_get_check_sum(mxArray *plhs[])
 {
-  ((real_T *)mxGetPr((plhs[0])))[0] = (real_T)(1146801445U);
-  ((real_T *)mxGetPr((plhs[0])))[1] = (real_T)(1620758963U);
-  ((real_T *)mxGetPr((plhs[0])))[2] = (real_T)(1838839830U);
-  ((real_T *)mxGetPr((plhs[0])))[3] = (real_T)(3812961945U);
+  ((real_T *)mxGetPr((plhs[0])))[0] = (real_T)(634061019U);
+  ((real_T *)mxGetPr((plhs[0])))[1] = (real_T)(904278378U);
+  ((real_T *)mxGetPr((plhs[0])))[2] = (real_T)(192638353U);
+  ((real_T *)mxGetPr((plhs[0])))[3] = (real_T)(833802157U);
 }
 
 mxArray *sf_c2_simple_get_autoinheritance_info(void)
@@ -404,7 +403,7 @@ mxArray *sf_c2_simple_get_autoinheritance_info(void)
     autoinheritanceFields);
 
   {
-    mxArray *mxChecksum = mxCreateString("ezINH0lmIOfbCoPKk9okH");
+    mxArray *mxChecksum = mxCreateString("qfmMb2RawUAAvWUAdPMlD");
     mxSetField(mxAutoinheritanceInfo,0,"checksum",mxChecksum);
   }
 
@@ -529,7 +528,7 @@ static void chart_debug_initialization(SimStruct *S, unsigned int
 
         /* Initialization of MATLAB Function Model Coverage */
         _SFD_CV_INIT_EML(0,1,1,0,0,0,0,0,0,0,0);
-        _SFD_CV_INIT_EML_FCN(0,0,"eML_blk_kernel",0,-1,306);
+        _SFD_CV_INIT_EML_FCN(0,0,"eML_blk_kernel",0,-1,304);
         _SFD_TRANS_COV_WTS(0,0,0,1,0);
         if (chartAlreadyPresent==0) {
           _SFD_TRANS_COV_MAPS(0,
@@ -558,7 +557,7 @@ static void chart_debug_initialization(SimStruct *S, unsigned int
 
 static const char* sf_get_instance_specialization(void)
 {
-  return "C0dZSgCHgwBqkvnHoQai8E";
+  return "i6YHwf6yoA9BCGzd7WmRyB";
 }
 
 static void sf_opaque_initialize_c2_simple(void *chartInstanceVar)
@@ -721,10 +720,10 @@ static void mdlSetWorkWidths_c2_simple(SimStruct *S)
   }
 
   ssSetOptions(S,ssGetOptions(S)|SS_OPTION_WORKS_WITH_CODE_REUSE);
-  ssSetChecksum0(S,(3959093230U));
-  ssSetChecksum1(S,(1794465264U));
-  ssSetChecksum2(S,(3382732206U));
-  ssSetChecksum3(S,(2522002933U));
+  ssSetChecksum0(S,(371074889U));
+  ssSetChecksum1(S,(3130286125U));
+  ssSetChecksum2(S,(2683700359U));
+  ssSetChecksum3(S,(1776583238U));
   ssSetmdlDerivatives(S, NULL);
   ssSetExplicitFCSSCtrl(S,1);
   ssSupportsMultipleExecInstances(S,1);
