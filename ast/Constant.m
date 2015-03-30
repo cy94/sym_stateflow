@@ -11,6 +11,5 @@ classdef Constant < ASTNode
             obj.value = value;
         end
     end
-    
 end
 

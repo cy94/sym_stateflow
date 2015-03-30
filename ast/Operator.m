@@ -3,7 +3,6 @@ classdef Operator < ASTNode
     %   Detailed explanation goes here
     
     properties
-        symbol
         left_node
         right_node
     end
