@@ -12,7 +12,9 @@ clear all
 disp('Initializing symbolic environment');
 
 % add listener to model, used to update the sym env
-update_listener = add_exec_event_listener('simple/Simple Chart', 'PreOutputs', @updateEnvCallback);
+update_listener = add_exec_event_listener('simple/Simple Chart', ...
+                                          'PreOutputs', ...
+                                          @updateEnvCallback);
 
 % store the simulink root
 root = sfroot();
@@ -48,24 +50,21 @@ for i = 1 : length(states)
     %     get AST for each line and add to action_set
     % TODO: refactor this
 %%%%%%%%%%%%%%    
-    lines = strtrim(strsplit(out.entry, ';'));
-    lines(strcmp('', lines)) = [];
+    lines = getLines(out.entry);
     
     for j = 1 : numel(lines)
         ast = parse(lines{j});
         action_set.add_entry_action(ast);
     end
 %%%%%%%%%%%%%%
-    lines = strtrim(strsplit(out.during, ';'));
-    lines(strcmp('', lines)) = [];
+    lines = getLines(out.during);
     
     for j = 1 : numel(lines)
         ast = parse(lines{j});
         action_set.add_during_action(ast);
     end
 %%%%%%%%%%%%%%
-    lines = strtrim(strsplit(out.exit, ';'));
-    lines(strcmp('', lines)) = [];
+    lines = getLines(out.exit);
     
     for j = 1 : numel(lines)
         ast = parse(lines{j});
@@ -83,28 +82,38 @@ end
 % parse transition labels and add to table
 disp('Transitions');
 translabel_expr = '\[(?<guard>.*)\]/\{(?<action>.*)\}';
-transition_table = MapN();
+transition_table = TransitionTable();
 
 for i = 1 : length(transitions)
 %   skip the initial / default transition - doesnt have a source
     if(~isempty(transitions(i).Source))
         fprintf('%s', transitions(i).Source.Name);
     
-        fprintf('->%s: %s\n', transitions(i).Destination.Name, transitions(i).LabelString);
+        fprintf('->%s: %s\n', transitions(i).Destination.Name, ...
+                              transitions(i).LabelString);
         fprintf('---------\n');
         
         out = regexp(transitions(i).LabelString, translabel_expr, 'names');
         disp(out);
         
         %     store ASTs in struct
+        %     transition guard
         ast = parse(out.guard);
         tr_set.guard = ast;
         
-        ast = parse(out.action);
-        tr_set.action = ast;
+        %     transition action
+        tr_set.action = {};
+        lines = getLines(out.action);
+
+        for j = 1 : numel(lines)
+            ast = parse(lines{j});
+            tr_set.action{end + 1} = ast;
+        end
         
-        %    store struct in MapN (misc/MapN)
-        transition_table(transitions(i).Source.Name, transitions(i).Destination.Name) = tr_set;
+        %    store struct in transition_table
+        transition_table.set(transitions(i).Source.Name, ... 
+                             transitions(i).Destination.Name, ...
+                             tr_set);
     end
 end
 
@@ -119,3 +128,5 @@ SETBB_list = {};
 SETDB_list = {};
 
 fprintf('Finished initEnv\n----------------\n');
+
+

@@ -110,10 +110,10 @@ unsigned int sf_simple_process_check_sum_call( int nlhs, mxArray * plhs[], int
       return 0;
     }
   } else {
-    ((real_T *)mxGetPr((plhs[0])))[0] = (real_T)(1743688793U);
-    ((real_T *)mxGetPr((plhs[0])))[1] = (real_T)(2679773498U);
-    ((real_T *)mxGetPr((plhs[0])))[2] = (real_T)(4263735808U);
-    ((real_T *)mxGetPr((plhs[0])))[3] = (real_T)(2144552744U);
+    ((real_T *)mxGetPr((plhs[0])))[0] = (real_T)(2032765730U);
+    ((real_T *)mxGetPr((plhs[0])))[1] = (real_T)(3556621781U);
+    ((real_T *)mxGetPr((plhs[0])))[2] = (real_T)(3671281443U);
+    ((real_T *)mxGetPr((plhs[0])))[3] = (real_T)(1607680476U);
   }
 
   return 1;
@@ -265,7 +265,7 @@ unsigned int sf_simple_third_party_uses_info( int nlhs, mxArray * plhs[], int
     switch (chartFileNumber) {
      case 1:
       {
-        if (strcmp(tpChksum, "yyTJT6K9N44ZrmDZfI2vsB") == 0) {
+        if (strcmp(tpChksum, "UFIdGPWJF0Fu8rPThNOFkF") == 0) {
           extern mxArray *sf_c1_simple_third_party_uses_info(void);
           plhs[0] = sf_c1_simple_third_party_uses_info();
           break;

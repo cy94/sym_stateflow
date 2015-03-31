@@ -1,6 +1,6 @@
  simple_sfun
 
- Timestamp is 551a9eac (Tue Mar 31 18:48:36 2015)
+ Timestamp is 551aa7ee (Tue Mar 31 19:28:06 2015)
 
  Preferred load address is 0000000180000000
 
@@ -934,10 +934,10 @@
  0002:00000490       __xc_z                     000000018003b490     MSVCRT:cinitexe.obj
  0002:00000498       __xi_a                     000000018003b498     MSVCRT:cinitexe.obj
  0002:000004a8       __xi_z                     000000018003b4a8     MSVCRT:cinitexe.obj
- 0002:000004e0       __real@41d49d5950800000    000000018003b4e0     c1_simple.obj
- 0002:000004e8       __real@41e84465fee00000    000000018003b4e8     c1_simple.obj
- 0002:000004f0       __real@41e0cb6768000000    000000018003b4f0     c1_simple.obj
- 0002:000004f8       __real@41d1a78392000000    000000018003b4f8     c1_simple.obj
+ 0002:000004e0       __real@41c8de109c000000    000000018003b4e0     c1_simple.obj
+ 0002:000004e8       __real@41c40fdb39000000    000000018003b4e8     c1_simple.obj
+ 0002:000004f0       __real@41d14bc989400000    000000018003b4f0     c1_simple.obj
+ 0002:000004f8       __real@41aab1c8a0000000    000000018003b4f8     c1_simple.obj
  0002:00000500       __real@402c000000000000    000000018003b500     c1_simple.obj
  0002:00000508       __real@4024000000000000    000000018003b508     c1_simple.obj
  0002:00000510       __real@3ff0000000000000    000000018003b510     c1_simple.obj
@@ -956,10 +956,10 @@
  0002:00000af8       __real@0000000000000000    000000018003baf8     simple_sfun_registry.obj
  0002:00000b00       __real@bff0000000000000    000000018003bb00     simple_sfun_registry.obj
  0002:00000b08       __real@41602cbca0000000    000000018003bb08     simple_sfun_registry.obj
- 0002:00000b10       __real@41dff4d1ca000000    000000018003bb10     simple_sfun.obj
- 0002:00000b18       __real@41efc46e40000000    000000018003bb18     simple_sfun.obj
- 0002:00000b20       __real@41e3f74327400000    000000018003bb20     simple_sfun.obj
- 0002:00000b28       __real@41d9fba516400000    000000018003bb28     simple_sfun.obj
+ 0002:00000b10       __real@41d7f4d077000000    000000018003bb10     simple_sfun.obj
+ 0002:00000b18       __real@41eb5a69e4600000    000000018003bb18     simple_sfun.obj
+ 0002:00000b20       __real@41ea7fb7baa00000    000000018003bb20     simple_sfun.obj
+ 0002:00000b28       __real@41de4a62c8800000    000000018003bb28     simple_sfun.obj
  0002:00000b30       __real@41ed08af7be00000    000000018003bb30     simple_sfun.obj
  0002:00000b38       __real@41d03fc151000000    000000018003bb38     simple_sfun.obj
  0002:00000b40       __real@41c439d4aa000000    000000018003bb40     simple_sfun.obj

@@ -8,7 +8,7 @@ classdef SETDecisionBlock
     end
     
     methods
-        function set(obj, ast):
+        function set(obj, ast)
             obj.ast = ast;
         end
         
