@@ -1,3 +1,9 @@
 *.log
 *.mexw64
 *.slx
+*.c
+*.mat
+*.obj
+*.exp
+*.lib
+

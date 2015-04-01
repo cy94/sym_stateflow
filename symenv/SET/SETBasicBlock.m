@@ -1,4 +1,4 @@
-classdef SETBasicBlock
+classdef SETBasicBlock 
     %SETBASICBLOCK Variable -> AST Mappings in the SET
     %   SET = Symbolic Execution Trace
      
@@ -29,6 +29,17 @@ classdef SETBasicBlock
                 AST = obj.map(varname);
             else
                 AST = [];
+            end
+        end
+        
+%         updates the map of variables with the action in 'ast' 
+%         (eg: x = x + 1) by using the previous basic blocks stored 
+%         in 'BB_list'
+        function update(obj, ast, BB_list)
+%           ast is an assignment
+            if(isa(ast, 'Assignment'))
+                var_name = ast.left_node.name;
+                new_value_ast = copyAST(ast.right_node);
             end
         end
     end
