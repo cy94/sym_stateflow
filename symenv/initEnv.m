@@ -13,7 +13,7 @@ disp('Initializing symbolic environment');
 
 % add listener to model, used to update the sym env
 update_listener = add_exec_event_listener('simple/Simple Chart', ...
-                                          'PreOutputs', ...
+                                          'PostOutputs', ...
                                           @updateEnvCallback);
 
 % store the simulink root
@@ -101,7 +101,7 @@ for i = 1 : length(transitions)
         ast = parse(out.guard);
         tr_set.guard = ast;
         
-        %     transition action
+        %     transition action - cell array of ASTs
         tr_set.action = {};
         lines = getLines(out.action);
 

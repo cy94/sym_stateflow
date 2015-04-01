@@ -7,17 +7,24 @@ function [ newAST ] = copyAST( ast )
     
 
     if(isa(ast, 'Variable'))
-        newAST = feval(class(ast), []);
-        newAST.name = ast.name;
+        newAST = feval(class(ast), ast.name);
+%         newAST.name = ast.name;
         return;
     elseif(isa(ast, 'Constant')) 
-        newAST = feval(class(ast), []);
-        newAST.value = ast.value;
+        newAST = feval(class(ast), ast.value);
+%         newAST.value = ast.value;
         return;
     else
-        newAST = feval(class(ast), [], []);
-        newAST.left_node = copyAST(ast.left_node);
-        newAST.right_node = copyAST(ast.right_node);
+        newAST = feval(class(ast), ...
+            copyAST(ast.left_node), ...
+            copyAST(ast.right_node));
+        
+%         set parent pointers 
+%         newAST.left_node = copyAST(ast.left_node);
+%         newAST.left_node.parent = newAST;
+%         
+%         newAST.right_node = copyAST(ast.right_node);
+%         newAST.right_node.parent = newAST;
     end
 end
 

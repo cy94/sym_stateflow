@@ -11,6 +11,9 @@ classdef Operator < ASTNode
         function obj = Operator(left, right)
             obj.left_node = left;
             obj.right_node = right;
+            
+            left.parent_node = obj;
+            right.parent_node = obj;
         end
     end
     

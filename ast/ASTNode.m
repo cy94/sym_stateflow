@@ -1,4 +1,4 @@
-classdef ASTNode
+classdef ASTNode < handle
     %ASTNODE Node of an Abstract Syntax Tree (AST)
     %  This is the parent class for all operators and 
     %  expression nodes
@@ -11,7 +11,7 @@ classdef ASTNode
     %   assignment (=)
     
     properties
-        parent
+        parent_node
     end
     
     methods
