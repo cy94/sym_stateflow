@@ -1,4 +1,4 @@
-classdef SETBasicBlock 
+classdef SETBasicBlock < handle
     
     %SETBASICBLOCK Variable -> AST Mappings in the SET
     %   SET = Symbolic Execution Trace
@@ -57,10 +57,12 @@ classdef SETBasicBlock
                         node = queue{1}; queue = queue(2:end);
 
                         if(isa(node, 'Variable'))
-    %                         lookup previous value of 'node' 
+    %                       lookup previous value of 'node' 
+                            node_var_name = node.name;
+                            
                             for j = numel(BB_list): -1 : 1
                                 basic_block = BB_list{j};
-                                old_var_ast = basic_block.get(var_name);
+                                old_var_ast = basic_block.get(node_var_name);
 
                                 if(~isempty(old_var_ast))
     %                               found the previous value

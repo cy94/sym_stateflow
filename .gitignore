@@ -7,4 +7,6 @@
 *.exp
 *.lib
 *.asv
-
+slprj/*
+*.h
+*.map

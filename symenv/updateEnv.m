@@ -22,6 +22,10 @@ end
 newBasicBlock = SETBasicBlock();
 newDecisionBlock = SETDecisionBlock();
 
+% add to list
+SETBB_list{end + 1} = newBasicBlock;
+SETDB_list{end + 1} = newDecisionBlock;
+
 % during action - if transition is from a state to itself
 if(strcmp(prev_state, current_state))
     fprintf('During: %s\n', current_state);
@@ -61,8 +65,7 @@ fprintf('Entry: %s\n', current_state);
 action_ast_list = state_table.get(current_state).entry_action;
 newBasicBlock.update(action_ast_list, SETBB_list);
 
-SETBB_list{end + 1} = newBasicBlock;
-SETDB_list{end + 1} = newDecisionBlock;
+
 
 
 
