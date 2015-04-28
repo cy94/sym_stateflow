@@ -2,7 +2,7 @@
 % 
 % 
 % Updates the symbolic execution environment
-% with SETBasicBlock and SETDecisionBlock
+% with one SETBasicBlock and one SETDecisionBlock
 
 disp('Updating symbolic environment');
 
@@ -14,7 +14,6 @@ bad_state_name = char(state_name.None);
 
 % first transition is discarded
 if(strcmp(prev_state, bad_state_name) && strcmp(current_state, bad_state_name))
-%     ends the script
     return
 end
 
@@ -33,11 +32,10 @@ if(strcmp(prev_state, current_state))
     action_ast_list = state_table.get(current_state).during_action;
     newBasicBlock.update(action_ast_list, SETBB_list);
     
-    SETBB_list{end + 1} = newBasicBlock;
     return
 end
 
-% proper transition: prev_state -> current_state (both not None)
+% proper transition: prev_state -> current_state 
 if(~strcmp(prev_state, bad_state_name) && ~strcmp(current_state, bad_state_name))
     
     % exit action for previous state

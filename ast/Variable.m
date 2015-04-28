@@ -1,8 +1,11 @@
 classdef Variable < ASTNode
-    %VARIABLE Summary of this class goes here
-    %   Detailed explanation goes here
+    %VARIABLE Variable ASTNode
+    %   Represents a MATLAB variable
+    %   The node stores only the name of the variable 
+    %   as a string
     
     properties
+    % name of the variable
         name
     end
     

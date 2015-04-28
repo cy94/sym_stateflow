@@ -1,6 +1,6 @@
 classdef BooleanOperator < Operator
-    %BOOLEANOPERATOR Summary of this class goes here
-    %   Detailed explanation goes here
+    %BOOLEANOPERATOR Base class for boolean operators
+    %   Eg: and (&&), or (||)
     
     properties
     end

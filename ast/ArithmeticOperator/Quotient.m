@@ -1,6 +1,6 @@
 classdef Quotient < ArithmeticOperator
-    %QUOTIENT Summary of this class goes here
-    %   Detailed explanation goes here
+    %QUOTIENT ASTNode for division (/)
+    %   Eg: 5 / 6
     
     properties
     end

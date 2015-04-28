@@ -1,6 +1,6 @@
 classdef GreaterThan < RelationalOperator
-    %GREATERTHAN Summary of this class goes here
-    %   Detailed explanation goes here
+    %GREATERTHAN ASTNode for '>'
+    %   Eg: x > 5
     
     properties
     end

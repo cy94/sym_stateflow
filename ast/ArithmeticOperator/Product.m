@@ -1,6 +1,6 @@
 classdef Product < ArithmeticOperator
-    %PRODUCT Summary of this class goes here
-    %   Detailed explanation goes here
+    %PRODUCT ASTNode for multiplication (*)
+    %   Eg: 5 * 6
     
     properties
     end

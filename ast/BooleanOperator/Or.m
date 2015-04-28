@@ -1,6 +1,6 @@
 classdef Or < BooleanOperator
-    %OR Summary of this class goes here
-    %   Detailed explanation goes here
+    %OR ASTNode for boolean or (||)
+    %   Eg: x || y
     
     properties
     end

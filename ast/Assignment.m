@@ -1,6 +1,10 @@
 classdef Assignment < Operator
-    %ASSIGNMENT Summary of this class goes here
-    %   Detailed explanation goes here
+    %ASSIGNMENT Assignment ASTNode
+    %   Represents an assignment of an 
+    %   expression to a Variable node
+    %   Eg:
+    % 		x = 10
+    % 		y = 5 + z
     
     properties
     end

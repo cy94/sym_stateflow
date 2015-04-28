@@ -1,6 +1,6 @@
 classdef ArithmeticOperator < Operator
-    %ARITHMETICOPERATOR Summary of this class goes here
-    %   Detailed explanation goes here
+    %ARITHMETICOPERATOR Base class for arithmetic operators
+    %   Eg: +, -, *, /
     
     properties
     end

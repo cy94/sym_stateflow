@@ -1,6 +1,6 @@
 classdef Sum < ArithmeticOperator
-    %SUM Summary of this class goes here
-    %   Detailed explanation goes here
+    %SUM ASTNode for sum (+)
+    %   Eg: 5 + 6
     
     properties
     end

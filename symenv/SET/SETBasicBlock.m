@@ -1,4 +1,4 @@
-classdef SETBasicBlock < handle
+    classdef SETBasicBlock < handle
     
     %SETBASICBLOCK Variable -> AST Mappings in the SET
     %   SET = Symbolic Execution Trace
@@ -6,8 +6,8 @@ classdef SETBasicBlock < handle
     %   Used to store mappings of variables to current values
     %   during symbolic execution
     %   Uses a containers.Map object with
-    %         key = Variable Name (string)
-    %   and   value = AST node (ASTNode) value for that variable
+    %         key   = Variable Name (string)
+    %         value = AST node (ASTNode) value for that variable
     
     properties
         map
@@ -46,7 +46,7 @@ classdef SETBasicBlock < handle
                     var_name = ast.left_node.name;
                     new_value_ast = copyAST(ast.right_node);
 
-    %               find latest value of variables in new_value_ast
+    %               find latest value of 'Variable's in new_value_ast
     %               do a Breadth First Search on the tree to find the 
     %               Variable nodes
 
@@ -71,9 +71,10 @@ classdef SETBasicBlock < handle
 
     %                               add to new_value_ast
 
+
+                                    if(isempty(node.parent_node))
     %                               no parent - this is the only node in 
     %                               new_value_ast
-                                    if(isempty(node.parent_node))
                                         new_value_ast = copy_var_ast;
                                     elseif(node == node.parent_node.left_node)    
                                         node.parent_node.left_node = copy_var_ast;

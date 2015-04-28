@@ -1,6 +1,6 @@
 classdef NotEquals < RelationalOperator
-    %NOTEQUALS Summary of this class goes here
-    %   Detailed explanation goes here
+    %NOTEQUALS ASTNode for '~='
+    %   Eg: x ~= 5
     
     properties
     end

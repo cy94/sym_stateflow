@@ -68,7 +68,6 @@ classdef SETDecisionBlock < handle
                         node.right_node} ];
                 end
             end
-            new_ast
             obj.set(new_ast);
         end
     end

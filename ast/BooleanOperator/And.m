@@ -1,6 +1,6 @@
 classdef And < BooleanOperator
-    %AND Summary of this class goes here
-    %   Detailed explanation goes here
+    %AND ASTNode for boolean '&&'
+    %   Eg: x && y
     
     properties
     end

@@ -1,6 +1,6 @@
 classdef LessThan < RelationalOperator
-    %UNTITLED Summary of this class goes here
-    %   Detailed explanation goes here
+    %LessThan ASTNode for '<''
+    %   Eg: x < 5
     
     properties
     end

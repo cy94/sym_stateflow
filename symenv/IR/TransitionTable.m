@@ -1,11 +1,12 @@
 classdef TransitionTable
-    %TRANSITIONTABLE Table of Transitions and guards/actions in them
-    %   Table structure
-    %   Uses containers.Map
+    %TRANSITIONTABLE Map of: Transitions -> guards/actions 
+    %   Uses external library MapN
     %         
+    % Structure: 
     %   Transition from S1 -> S2
-    %   map= Source State Name -> map with Destination State Names as keys
-    %   Destination State Name -> 
+    %   map(S1, S2) = struct 
+    %   where struct.guard   = guard AST  
+    %   and   struct.actions = list of action ASTs
        
 
     properties

@@ -1,6 +1,6 @@
 classdef Equals < RelationalOperator
-    %EQUAL Summary of this class goes here
-    %   Detailed explanation goes here
+    %EQUAL ASTNode for '=='
+    %   Eg: x == 5
     
     properties
     end

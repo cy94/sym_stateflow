@@ -1,6 +1,6 @@
  classdef Difference < ArithmeticOperator
-    %DIFFERENCE Summary of this class goes here
-    %   Detailed explanation goes here
+    %DIFFERENCE ASTNode for subtraction (-)
+    %   Eg: 5 - 6
     
     properties
     end

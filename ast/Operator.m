@@ -1,6 +1,7 @@
 classdef Operator < ASTNode
-    %OPERATOR Summary of this class goes here
-    %   Detailed explanation goes here
+    %OPERATOR Base class for all binary operator ASTNodes
+    %   Operator has two children, used to store the left
+    %   and right ASTs
     
     properties
         left_node

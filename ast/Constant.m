@@ -1,8 +1,9 @@
 classdef Constant < ASTNode
-    %CONSTANT Summary of this class goes here
-    %   Detailed explanation goes here
+    %CONSTANT Constant value ASTNode
+    %   Represents a constant value (int or float)
     
     properties
+        % Value stored in the node
         value
     end
     

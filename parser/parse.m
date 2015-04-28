@@ -4,10 +4,10 @@ function [ AST ] = parse( in_string )
 %   code in Stateflow en / du / ex actions and 
 %   transition guard / action
 %   assumes that code syntax is correct
-
+% 
 % eg: '1', 'x + 1', 'x = 1 + y', 'a && b'
 % currently does not handle parenthesis and semicolon
-
+% 
 % Uses the Shunting Yard Algorithm - stacks for operators 
 % and operands (AST nodes)
     fprintf('Parsing: %s\n', in_string);

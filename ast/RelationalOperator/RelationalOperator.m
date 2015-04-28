@@ -1,6 +1,6 @@
 classdef RelationalOperator < Operator
-    %RELATIONALOPERATOR Summary of this class goes here
-    %   Detailed explanation goes here
+    %RELATIONALOPERATOR Base class for relational operators
+    %   Eg: <, >, <= ...
     
     properties
     end
