@@ -1,5 +1,5 @@
 function [ tokens ] = tokenize( in_string )
-%TOKENIZE tokenize a MATLAB code statement
+%TOKENIZE tokenize a MATLAB source code statement
 %     splits given code string into tokens
 %     by splitting on whitespace
     tokens = strsplit(in_string);

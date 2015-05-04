@@ -33,9 +33,31 @@
             end
         end
         
-%         updates the map of variables with the actions in 'ast_list' 
-%         (eg: x = x + 1) by using the previous basic blocks stored 
-%         in 'BB_list'
+%         updates the map of variables in 'obj' with the actions in
+%         'ast_list' (eg: x = x + 1) by using the previous basic 
+%         blocks in 'BB_list'
+%          
+%         performs a Breadth First Search on the new assignment AST
+%         and replaces variables with previous AST values 
+        % eg: previous value is x = 5 with the AST
+        %       =
+        %     /   \
+        %    x     1
+        %   and the new assignment is x = x + 1
+        %         =
+        %        / \
+        %       x   +
+        %          / \
+        %         x   1
+        % The x on the right side of the equation is replaced by its 
+        % previous value of 5
+        %         =
+        %        / \
+        %       x   +
+        %          / \
+        %         5   1
+
+
         function update(obj, ast_list, BB_list)
             for i = 1:numel(ast_list)
                 

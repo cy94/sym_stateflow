@@ -3,7 +3,8 @@
 % Initializes the symbolic environment for the currently opened 
 % Stateflow chart. Parses entry / during / exit actions for states
 % and guards / transition actions for transitions and stores the AST
-% (Abstract Syntax Tree) for each
+% (Abstract Syntax Tree) for each in a StateActionTable and TransitionTable
+% objects
 
 % clear the workspace - using base workspace for all variables
 clc
@@ -32,7 +33,7 @@ transitions = chart.find('-isa', 'Stateflow.Transition');
 disp('States');
 statelabel_expr = '(?<name>.*)?\nen:(?<entry>.*)\ndu:(?<during>.*)\nex:(?<exit>.*)';
 
-% create table of action -> ASTs
+% create table of action -> ASTs (StateActionTable)
 state_table = StateActionTable();
 
 for i = 1 : length(states)
@@ -79,7 +80,7 @@ end
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-% parse transition labels and add to table
+% parse transition labels and add to TransitionTable
 disp('Transitions');
 translabel_expr = '\[(?<guard>.*)\]/\{(?<action>.*)\}';
 transition_table = TransitionTable();

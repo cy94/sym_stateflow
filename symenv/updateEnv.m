@@ -3,6 +3,15 @@
 % 
 % Updates the symbolic execution environment
 % with one SETBasicBlock and one SETDecisionBlock
+% 
+% Based on the previous Stateflow state and the current state, 
+% update these blocks with the actions (entry, during, exit, 
+% currently only assignment actions. eg: x = 10) and 
+% constraints (eg: x < 5 && y > 10)
+% 
+% For each transition, update it using the previous state's 
+% exit action, the transition guard and action, and the next state's
+% entry action
 
 disp('Updating symbolic environment');
 

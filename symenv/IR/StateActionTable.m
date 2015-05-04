@@ -1,8 +1,8 @@
 classdef StateActionTable
-    %STATEACTIONTABLE Table of States and actions in them
-    %   Table structure
+    %STATEACTIONTABLE A map of States to actions in it
+    %   A mapping from State name -> State actions
 %      ---------------------------------------------
-%     | State name (string) | StateActionSet object |
+%     | State name (string) -> StateActionSet object |
 %      ---------------------------------------------
 %     Uses containers.Map
 

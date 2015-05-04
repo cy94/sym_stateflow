@@ -1,5 +1,6 @@
 classdef SETDecisionBlock < handle
     %SETDECISIONBLOCK Stores the path constraint during symbolic execution
+    %   SET = Symbolic Execution Trace
     %   Stores a single AST (boolean) node for the transition guard
     %   during symbolic execution
     
@@ -19,6 +20,8 @@ classdef SETDecisionBlock < handle
 %         creates a new path constraint with the condition in 'ast'
 %         (eg: x < 10) by using all previous basic blocks stored 
 %         in 'BB_list'
+
+          % see: SETBasicBlock.update
         function update(obj, ast, BB_list)
             new_ast = copyAST(ast);
             
